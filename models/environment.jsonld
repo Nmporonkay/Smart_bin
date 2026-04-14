@@ -1,0 +1,25 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "bot": "https://w3id.org/bot",
+    "pipeline": "https://github.com/Nmporonkay/Adv_Techs_Lab/blob/main/docs/ontology.md#"
+  },
+  "@id": "urn:dev:team3:upatras:kypes-lab",
+  "@type": "bot:Space",
+  "name": "Kypes Lab",
+  "description": "Weekly lab room in ECE Upatras",
+  "schema:containedInPlace": {
+    "@type": "schema:University",
+    "name": "University of Patras",
+    "schema:department": {
+      "@type": "schema:EducationalOrganization",
+      "name": "Department of Electrical Engineering and Computer Engineering"
+    }
+  },
+  "locationType": "indoor",
+  "contains": [
+    "urn:dev:team3:wastebin:bin-01",
+    "urn:dev:team03:pir-01"
+  ]
+}
