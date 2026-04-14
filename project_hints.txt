@@ -59,3 +59,10 @@ What does it make sense to include in your data model?
 The entity diagram you drew is the beginning of your project’s data architecture.
 As you add components, update the diagram. It is much cheaper to change a diagram than to refactor
 a whole schema.
+
+	ΕΡΩΤΗΣΕΙΣ ΓΙΑ ΠΡΟΤΖΕΚΤ
+
+1)Αν ο αισθητηρας αναγνωριζει μονο τη θερμοτητα και οχι την κινηση, πως θα τον κανουμε να αναγνωρισει ποτε πεφτει μεσα του ενα σκουπιδι το οποιο θα ειναι 
+σε θερμοκρασια δωματιου;
+2)Πως θα μπορει να ανιχνεψει ο αισθητηρας το υψος των περιεχομενων του καδου (δηλ. το ποσοστο που θα ειναι γεματος);
+3)
