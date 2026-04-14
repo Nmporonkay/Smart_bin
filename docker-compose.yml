@@ -1,0 +1,20 @@
+services:
+  motion-pipeline:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    privileged: true
+    devices:
+      - "/dev/gpiomem0:/dev/gpiomem"
+      - "/dev/gpiochip0:/dev/gpiochip0"
+    volumes:
+      - motion_data:/data
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.5'
+    restart: unless-stopped
+
+volumes:
+  motion_data:
