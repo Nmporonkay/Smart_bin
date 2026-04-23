@@ -1,9 +1,10 @@
 FROM python:3.11-slim
-WORKDIR /home/iotlab_upat_3/labs/Labs_Advanced_Techniques/labs/lab04
+WORKDIR /home/iotlab_upat_3/labs/Smart_bin
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY pirlib ./pirlib
-COPY run_pipeline.py .
+COPY producer.py .
+COPY consumer.py .
 CMD python run_pipeline.py \
     --device-id pir-01 \
     --pin 17 \
