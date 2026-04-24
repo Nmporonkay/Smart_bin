@@ -1,7 +1,6 @@
 version: "3.9"
 
 services:
-
   # ─── MQTT Broker ────────────────────────────────────────────────
   broker:
     image: eclipse-mosquitto:2.0
@@ -11,6 +10,8 @@ services:
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto-data:/mosquitto/data
+    networks:
+      - smartbin-net
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
@@ -27,22 +28,20 @@ services:
     depends_on:
       broker:
         condition: service_healthy
+    networks:
+      - smartbin-net
     environment:
-      MQTT_BROKER: broker         # service name = DNS name inside compose network
+      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
       MQTT_PORT: "1883"
-      MQTT_TOPIC: smartbin/bin-01/pir-01/events
-      MQTT_STATUS_TOPIC: smartbin/bin-01/pir-01/status
+      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
+      MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
       DEVICE_ID: "urn:dev:team03:pir-01"
-      MOCK: "true"                # set to "false" on real Raspberry Pi
+      MOCK: "true"
       SAMPLE_INTERVAL: "0.1"
       COOLDOWN: "2.0"
       MIN_HIGH: "0.1"
       QOS: "1"
       VERBOSE: "true"
-    # On real Raspberry Pi, uncomment to pass GPIO access:
-    # privileged: true
-    # devices:
-    #   - /dev/gpiomem:/dev/gpiomem
     restart: unless-stopped
 
   # ─── Consumer ───────────────────────────────────────────────────
@@ -54,16 +53,22 @@ services:
     depends_on:
       broker:
         condition: service_healthy
+    networks:
+      - smartbin-net
     environment:
-      MQTT_BROKER: broker
+      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
       MQTT_PORT: "1883"
-      MQTT_TOPIC: smartbin/bin-01/pir-01/events
+      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       QOS: "1"
       VERBOSE: "true"
     volumes:
-      - events-data:/app/output    # persisted JSONL output
+      - events-data:/app/output
     restart: unless-stopped
 
 volumes:
   mosquitto-data:
   events-data:
+
+networks:
+  smartbin-net:
+    driver: bridge
