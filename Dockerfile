@@ -8,7 +8,7 @@ COPY consumer.py .
 CMD python consumer.py \
     --broker localhost \
     --topic "smartbin/bin-01/pir-01/events" \
-    --out output/events.jsonl \
+    --out events.jsonl \
     --verbose \
     python producer.py \
     --broker localhost \
