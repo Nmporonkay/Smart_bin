@@ -1,20 +1,69 @@
+version: "3.9"
+
 services:
-  motion-pipeline:
+
+  # ─── MQTT Broker ────────────────────────────────────────────────
+  broker:
+    image: eclipse-mosquitto:2.0
+    container_name: smartbin-broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto-data:/mosquitto/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─── Producer ───────────────────────────────────────────────────
+  producer:
     build:
       context: .
-      dockerfile: Dockerfile
-    privileged: true
-    devices:
-      - "/dev/gpiomem0:/dev/gpiomem"
-      - "/dev/gpiochip0:/dev/gpiochip0"
+      dockerfile: producer/Dockerfile
+    container_name: smartbin-producer
+    depends_on:
+      broker:
+        condition: service_healthy
+    environment:
+      MQTT_BROKER: broker         # service name = DNS name inside compose network
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: smartbin/bin-01/pir-01/events
+      MQTT_STATUS_TOPIC: smartbin/bin-01/pir-01/status
+      DEVICE_ID: "urn:dev:team03:pir-01"
+      MOCK: "true"                # set to "false" on real Raspberry Pi
+      SAMPLE_INTERVAL: "0.1"
+      COOLDOWN: "2.0"
+      MIN_HIGH: "0.1"
+      QOS: "1"
+      VERBOSE: "true"
+    # On real Raspberry Pi, uncomment to pass GPIO access:
+    # privileged: true
+    # devices:
+    #   - /dev/gpiomem:/dev/gpiomem
+    restart: unless-stopped
+
+  # ─── Consumer ───────────────────────────────────────────────────
+  consumer:
+    build:
+      context: .
+      dockerfile: consumer/Dockerfile
+    container_name: smartbin-consumer
+    depends_on:
+      broker:
+        condition: service_healthy
+    environment:
+      MQTT_BROKER: broker
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: smartbin/bin-01/pir-01/events
+      QOS: "1"
+      VERBOSE: "true"
     volumes:
-      - motion_data:/data
-    deploy:
-      resources:
-        limits:
-          memory: 128M
-          cpus: '0.5'
+      - events-data:/app/output    # persisted JSONL output
     restart: unless-stopped
 
 volumes:
-  motion_data:
+  mosquitto-data:
+  events-data:
