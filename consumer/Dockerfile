@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY consumer.py .
 
-CMD ["python", "consumer.py"]
+CMD ["python", "consumer.py", "--out", "app/output/events.jsonl"]
