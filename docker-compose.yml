@@ -1,8 +1,7 @@
 version: "3.9"
 
 services:
-
-  # ─── MQTT Broker ─────────────────────────────────────────────────────────────
+  # ─── MQTT Broker ────────────────────────────────────────────────
   broker:
     image: eclipse-mosquitto:2.0
     container_name: smartbin-broker
@@ -14,13 +13,13 @@ services:
     networks:
       - smartbin-net
     restart: unless-stopped
-    # healthcheck:
-    #   test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
-    #   interval: 10s
-    #   timeout: 5s
-    #   retries: 5
+    healthcheck:
+      test: ["CMD", "mosquitto_sub", "-t", "$$SYS/#", "-C", "1", "-i", "healthcheck", "-W", "3"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  # ─── PIR Event Producer ───────────────────────────────────────────────────────
+  # ─── Producer ───────────────────────────────────────────────────
   producer:
     build:
       context: .
@@ -33,22 +32,19 @@ services:
       - smartbin-net
     environment:
       PYTHONUNBUFFERED: "1"
-    command: >
-      python producer.py
-      --broker smartbin-broker
-      --port 1883
-      --topic smartbin/bin-01/pir-01/events
-      --status-topic smartbin/bin-01/pir-01/status
-      --device-id urn:dev:team03:pir-01
-      --bin-id bin-01
-      --sample-interval 0.1
-      --cooldown 2.0
-      --min-high 0.1
-      --qos 1
-      --verbose
+      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
+      MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
+      DEVICE_ID: "urn:dev:team03:pir-01"
+      SAMPLE_INTERVAL: "0.1"
+      COOLDOWN: "2.0"
+      MIN_HIGH: "0.1"
+      QOS: "1"
+      VERBOSE: "true"
     restart: unless-stopped
 
-  # ─── JSONL Consumer ───────────────────────────────────────────────────────────
+  # ─── Consumer ───────────────────────────────────────────────────
   consumer:
     build:
       context: .
@@ -61,107 +57,19 @@ services:
       - smartbin-net
     environment:
       PYTHONUNBUFFERED: "1"
-    command: >
-      python consumer.py
-      --broker smartbin-broker
-      --port 1883
-      --topic smartbin/bin-01/pir-01/events
-      --qos 1
-      --out /data/events.jsonl
-      --verbose
+      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
+      MQTT_PORT: "1883"
+      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
+      QOS: "1"
+      VERBOSE: "true"
     volumes:
-      - events-data:/data
+      - events-data:/app/output
     restart: unless-stopped
 
-  # ─── REST API ─────────────────────────────────────────────────────────────────
-#   api:
-#     build:
-#       context: .
-#       dockerfile: api/Dockerfile
-#     container_name: smartbin-api
-#     depends_on:
-#       broker:
-#         condition: service_healthy
-#     networks:
-#       - smartbin-net
-#     environment:
-#       PYTHONUNBUFFERED: "1"
-#       MQTT_BROKER: "smartbin-broker"
-#       MQTT_PORT: "1883"
-#       EVENTS_FILE: "/data/events.jsonl"
-#     ports:
-#       - "5000:5000"
-#     volumes:
-#       - events-data:/data
-#     restart: unless-stopped
+volumes:
+  mosquitto-data:
+  events-data:
 
-#   # ─── Rules-based Virtual Sensor ───────────────────────────────────────────────
-#   virtual-sensor-rules:
-#     build:
-#       context: .
-#       dockerfile: ml_model/Dockerfile
-#     container_name: smartbin-rules
-#     depends_on:
-#       broker:
-#         condition: service_healthy
-#     networks:
-#       - smartbin-net
-#     environment:
-#       PYTHONUNBUFFERED: "1"
-#     command: >
-#       python virtual_sensor_rules.py
-#       --broker smartbin-broker
-#       --port 1883
-#       --subscribe-topic smartbin/bin-01/pir-01/events
-#       --publish-topic smartbin/bin-01/usage
-#       --window 10
-#       --interval 30
-#     restart: unless-stopped
-
-#   # ─── ML Virtual Sensor ────────────────────────────────────────────────────────
-#   virtual-sensor-ml:
-#     build:
-#       context: .
-#       dockerfile: ml_model/Dockerfile
-#     container_name: smartbin-ml
-#     depends_on:
-#       broker:
-#         condition: service_healthy
-#     networks:
-#       - smartbin-net
-#     environment:
-#       PYTHONUNBUFFERED: "1"
-#     command: >
-#       python virtual_sensor_ml.py
-#       --broker smartbin-broker
-#       --port 1883
-#       --publish-topic smartbin/bin-01/prediction
-#       --model-path models/busy_predictor.joblib
-#       --bin-id bin-01
-#     restart: unless-stopped
-
-#   # ─── Node-RED ─────────────────────────────────────────────────────────────────
-#   nodered:
-#     build:
-#       context: .
-#       dockerfile: node_red/Dockerfile
-#     container_name: smartbin-nodered
-#     depends_on:
-#       broker:
-#         condition: service_healthy
-#     networks:
-#       - smartbin-net
-#     ports:
-#       - "1880:1880"
-#     volumes:
-#       - nodered-data:/data
-#     restart: unless-stopped
-
-# volumes:
-#   mosquitto-data:
-#   events-data:
-#   nodered-data:
-
-# networks:
-#   smartbin-net:
-#     driver: bridge
+networks:
+  smartbin-net:
+    driver: bridge
