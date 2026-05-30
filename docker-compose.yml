@@ -19,30 +19,30 @@ services:
       timeout: 5s
       retries: 5
 
-  # ─── Producer ───────────────────────────────────────────────────
-  producer:
-    build:
-      context: .
-      dockerfile: producer/Dockerfile
-    container_name: smartbin-producer
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    environment:
-      PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
-      MQTT_PORT: "1883"
-      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
-      MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
-      DEVICE_ID: "urn:dev:team03:pir-01"
-      SAMPLE_INTERVAL: "0.1"
-      COOLDOWN: "2.0"
-      MIN_HIGH: "0.1"
-      QOS: "1"
-      VERBOSE: "true"
-    restart: unless-stopped
+  # # ─── Producer ───────────────────────────────────────────────────
+  # producer:
+  #   build:
+  #     context: .
+  #     dockerfile: producer/Dockerfile
+  #   container_name: smartbin-producer
+  #   depends_on:
+  #     broker:
+  #       condition: service_healthy
+  #   networks:
+  #     - smartbin-net
+  #   environment:
+  #     PYTHONUNBUFFERED: "1"
+  #     MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
+  #     MQTT_PORT: "1883"
+  #     MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
+  #     MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
+  #     DEVICE_ID: "urn:dev:team03:pir-01"
+  #     SAMPLE_INTERVAL: "0.1"
+  #     COOLDOWN: "2.0"
+  #     MIN_HIGH: "0.1"
+  #     QOS: "1"
+  #     VERBOSE: "true"
+  #   restart: unless-stopped
 
   # ─── Consumer ───────────────────────────────────────────────────
   consumer:
