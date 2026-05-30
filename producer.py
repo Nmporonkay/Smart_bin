@@ -3,7 +3,7 @@ import time
 import json
 import uuid
 from datetime import datetime, timezone
-
+import os
 import paho.mqtt.client as mqtt
 
 from pirlib.sampler import PirSampler
@@ -12,8 +12,8 @@ from pirlib.interpreter import PirInterpreter
 
 def parse_args():
     parser = argparse.ArgumentParser(description="PIR Motion Event Producer")
-    parser.add_argument("--broker", type=str, default="localhost")
-    parser.add_argument("--port", type=int, default=1883)
+    parser.add_argument("--broker", type=str, default=os.environ.get("MQTT_BROKER", "localhost"))
+    parser.add_argument("--port",   type=int, default=int(os.environ.get("MQTT_PORT", 1883)))
     parser.add_argument("--topic", type=str, default="smartbin/bin-01/pir-01/events")
     parser.add_argument("--status-topic", type=str, default="smartbin/bin-01/pir-01/status")
     parser.add_argument("--device-id", type=str, default="urn:dev:team03:pir-01")
