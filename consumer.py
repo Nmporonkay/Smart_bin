@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 
 def parse_args():
     parser = argparse.ArgumentParser(description="PIR Motion Event Consumer")
-    parser.add_argument("--broker", type=str, default=os.environ.get("MQTT_BROKER", "localhost"))
+    parser.add_argument("--broker", type=str, default=os.environ.get("smartbin-broker", "localhost"))
     parser.add_argument("--port",   type=int, default=int(os.environ.get("MQTT_PORT", 1883)))
     parser.add_argument("--topic", type=str, default="smartbin/bin-01/pir-01/events")
     parser.add_argument("--qos", type=int, default=1, choices=[0, 1, 2])

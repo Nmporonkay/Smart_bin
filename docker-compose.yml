@@ -74,94 +74,94 @@ services:
     restart: unless-stopped
 
   # ─── REST API ─────────────────────────────────────────────────────────────────
-  api:
-    build:
-      context: .
-      dockerfile: api/Dockerfile
-    container_name: smartbin-api
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    environment:
-      PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "smartbin-broker"
-      MQTT_PORT: "1883"
-      EVENTS_FILE: "/data/events.jsonl"
-    ports:
-      - "5000:5000"
-    volumes:
-      - events-data:/data
-    restart: unless-stopped
+#   api:
+#     build:
+#       context: .
+#       dockerfile: api/Dockerfile
+#     container_name: smartbin-api
+#     depends_on:
+#       broker:
+#         condition: service_healthy
+#     networks:
+#       - smartbin-net
+#     environment:
+#       PYTHONUNBUFFERED: "1"
+#       MQTT_BROKER: "smartbin-broker"
+#       MQTT_PORT: "1883"
+#       EVENTS_FILE: "/data/events.jsonl"
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - events-data:/data
+#     restart: unless-stopped
 
-  # ─── Rules-based Virtual Sensor ───────────────────────────────────────────────
-  virtual-sensor-rules:
-    build:
-      context: .
-      dockerfile: ml_model/Dockerfile
-    container_name: smartbin-rules
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    environment:
-      PYTHONUNBUFFERED: "1"
-    command: >
-      python virtual_sensor_rules.py
-      --broker smartbin-broker
-      --port 1883
-      --subscribe-topic smartbin/bin-01/pir-01/events
-      --publish-topic smartbin/bin-01/usage
-      --window 10
-      --interval 30
-    restart: unless-stopped
+#   # ─── Rules-based Virtual Sensor ───────────────────────────────────────────────
+#   virtual-sensor-rules:
+#     build:
+#       context: .
+#       dockerfile: ml_model/Dockerfile
+#     container_name: smartbin-rules
+#     depends_on:
+#       broker:
+#         condition: service_healthy
+#     networks:
+#       - smartbin-net
+#     environment:
+#       PYTHONUNBUFFERED: "1"
+#     command: >
+#       python virtual_sensor_rules.py
+#       --broker smartbin-broker
+#       --port 1883
+#       --subscribe-topic smartbin/bin-01/pir-01/events
+#       --publish-topic smartbin/bin-01/usage
+#       --window 10
+#       --interval 30
+#     restart: unless-stopped
 
-  # ─── ML Virtual Sensor ────────────────────────────────────────────────────────
-  virtual-sensor-ml:
-    build:
-      context: .
-      dockerfile: ml_model/Dockerfile
-    container_name: smartbin-ml
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    environment:
-      PYTHONUNBUFFERED: "1"
-    command: >
-      python virtual_sensor_ml.py
-      --broker smartbin-broker
-      --port 1883
-      --publish-topic smartbin/bin-01/prediction
-      --model-path models/busy_predictor.joblib
-      --bin-id bin-01
-    restart: unless-stopped
+#   # ─── ML Virtual Sensor ────────────────────────────────────────────────────────
+#   virtual-sensor-ml:
+#     build:
+#       context: .
+#       dockerfile: ml_model/Dockerfile
+#     container_name: smartbin-ml
+#     depends_on:
+#       broker:
+#         condition: service_healthy
+#     networks:
+#       - smartbin-net
+#     environment:
+#       PYTHONUNBUFFERED: "1"
+#     command: >
+#       python virtual_sensor_ml.py
+#       --broker smartbin-broker
+#       --port 1883
+#       --publish-topic smartbin/bin-01/prediction
+#       --model-path models/busy_predictor.joblib
+#       --bin-id bin-01
+#     restart: unless-stopped
 
-  # ─── Node-RED ─────────────────────────────────────────────────────────────────
-  nodered:
-    build:
-      context: .
-      dockerfile: node_red/Dockerfile
-    container_name: smartbin-nodered
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    ports:
-      - "1880:1880"
-    volumes:
-      - nodered-data:/data
-    restart: unless-stopped
+#   # ─── Node-RED ─────────────────────────────────────────────────────────────────
+#   nodered:
+#     build:
+#       context: .
+#       dockerfile: node_red/Dockerfile
+#     container_name: smartbin-nodered
+#     depends_on:
+#       broker:
+#         condition: service_healthy
+#     networks:
+#       - smartbin-net
+#     ports:
+#       - "1880:1880"
+#     volumes:
+#       - nodered-data:/data
+#     restart: unless-stopped
 
-volumes:
-  mosquitto-data:
-  events-data:
-  nodered-data:
+# volumes:
+#   mosquitto-data:
+#   events-data:
+#   nodered-data:
 
-networks:
-  smartbin-net:
-    driver: bridge
+# networks:
+#   smartbin-net:
+#     driver: bridge
