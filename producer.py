@@ -17,8 +17,7 @@ def parse_args():
     parser.add_argument("--topic", type=str, default="smartbin/bin-01/pir-01/events")
     parser.add_argument("--status-topic", type=str, default="smartbin/bin-01/pir-01/status")
     parser.add_argument("--device-id", type=str, default="urn:dev:team03:pir-01")
-    parser.add_argument("--bin-id", type=str, default="bin-01",
-                        help="Container/bin identifier used in HA discovery topics and state topics")
+    parser.add_argument("--bin-id", type=str, default="bin-01")
     parser.add_argument("--pin", type=int, default=17)
     parser.add_argument("--sample-interval", type=float, default=0.1)
     parser.add_argument("--cooldown", type=float, default=2.0)
