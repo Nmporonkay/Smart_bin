@@ -1,0 +1,385 @@
+[
+    {
+        "id": "bf90239b7de8735b",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2419b22b1511ce73",
+        "type": "mqtt-broker",
+        "name": "Mosquitto broker",
+        "broker": "localhost",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "820af339f54a7d89",
+        "type": "ui_group",
+        "name": "Smart Wastebin",
+        "tab": "1ecde1f6c281c0ca",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1ecde1f6c281c0ca",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "ce61eb2b77298ecd",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "bdd67633c1783f1d",
+        "type": "mqtt in",
+        "z": "bf90239b7de8735b",
+        "name": "",
+        "topic": "smartbin/bin-01/pir-01/events",
+        "qos": "1",
+        "datatype": "auto-detect",
+        "broker": "2419b22b1511ce73",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "854fb6bfd6e13e21"
+            ]
+        ]
+    },
+    {
+        "id": "e10f23aee573926d",
+        "type": "debug",
+        "z": "bf90239b7de8735b",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "854fb6bfd6e13e21",
+        "type": "switch",
+        "z": "bf90239b7de8735b",
+        "name": "DetectedFilter",
+        "property": "msg.payload.motion_state",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "detected",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "clear",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 400,
+        "y": 260,
+        "wires": [
+            [
+                "88374f80eed7b030"
+            ],
+            [
+                "953f07d6b4df7ceb"
+            ]
+        ]
+    },
+    {
+        "id": "88374f80eed7b030",
+        "type": "function",
+        "z": "bf90239b7de8735b",
+        "name": "function 2",
+        "func": "// GET event log from flow context\nlet motionEvents = flow.get(\"motion_events\") || [];\n\n// SET current time and window\nconst now = Date.now();\nconst windowMs = 10 * 60 * 1000; // 10 minutes in milliseconds\n\n// ADD current time to event log\nmotionEvents.push(now);\n\n// REMOVE events outside the time window\nmotionEvents = motionEvents.filter(t => (now - t) < windowMs);\n\n// SAVE updated event log back to flow context\nflow.set(\"motion_events\", motionEvents);\n\n// COUNT events\nconst eventCount = motionEvents.length;\n\n// CLASSIFY activity level\nlet level;\nif (eventCount === 0) {\n    level = \"idle\";\n} else if (eventCount <= 5) {\n    level = \"low\";\n} else if (eventCount <= 15) {\n    level = \"medium\";\n} else {\n    level = \"high\";\n}\n\n// SET message payload\nmsg.payload = {\n    level: level,\n    event_count: eventCount,\n    window_minutes: 10,\n    timestamp: new Date().toISOString()\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "34d4f55eeffdbc89",
+                "61071ba7f9f6ec16",
+                "c966ca571342db0c",
+                "39c3c17277dc2cb3"
+            ]
+        ]
+    },
+    {
+        "id": "61071ba7f9f6ec16",
+        "type": "mqtt out",
+        "z": "bf90239b7de8735b",
+        "name": "",
+        "topic": "smartbin/bin-01/usage/nodered",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2419b22b1511ce73",
+        "x": 830,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "34d4f55eeffdbc89",
+        "type": "switch",
+        "z": "bf90239b7de8735b",
+        "name": "HighFilter",
+        "property": "payload.level",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "high",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "0a69a829fe39a1d6"
+            ]
+        ]
+    },
+    {
+        "id": "0a69a829fe39a1d6",
+        "type": "file",
+        "z": "bf90239b7de8735b",
+        "name": "",
+        "filename": "/home/iotlab_upat_3/labs/Adv_Techs_Lab/labs/lab10/data/detected_events.log",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1020,
+        "y": 240,
+        "wires": [
+            [
+                "e10f23aee573926d"
+            ]
+        ]
+    },
+    {
+        "id": "953f07d6b4df7ceb",
+        "type": "debug",
+        "z": "bf90239b7de8735b",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c966ca571342db0c",
+        "type": "ui_gauge",
+        "z": "bf90239b7de8735b",
+        "name": "",
+        "group": "820af339f54a7d89",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Bin usage",
+        "label": "units",
+        "format": "{{payload.event_count}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 800,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "39c3c17277dc2cb3",
+        "type": "ui_text",
+        "z": "bf90239b7de8735b",
+        "group": "820af339f54a7d89",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "level",
+        "format": "{{payload.level}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 830,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b2142c8436f766f5",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
