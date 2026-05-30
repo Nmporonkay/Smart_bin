@@ -32,7 +32,7 @@ services:
       - smartbin-net
     environment:
       PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
+      MQTT_BROKER: "broker"   # Quoted and using container_name
       MQTT_PORT: "1883"
       MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
@@ -57,7 +57,7 @@ services:
       - smartbin-net
     environment:
       PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "smartbin-broker"   # Quoted and using container_name
+      MQTT_BROKER: "broker"   # Quoted and using container_name
       MQTT_PORT: "1883"
       MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       QOS: "1"
