@@ -37,7 +37,6 @@ services:
       MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
       DEVICE_ID: "urn:dev:team03:pir-01"
-      MOCK: "true"
       SAMPLE_INTERVAL: "0.1"
       COOLDOWN: "2.0"
       MIN_HIGH: "0.1"
