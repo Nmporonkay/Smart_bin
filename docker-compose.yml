@@ -71,7 +71,7 @@ services:
       QOS: "1"
       VERBOSE: "true"
     volumes:
-      - ./data:/app/output 
+      - ./data:/home/iotlab_upat_3/labs/Smart_bin/data 
     restart: unless-stopped
     command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
 #----------API-------------
