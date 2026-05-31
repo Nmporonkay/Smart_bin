@@ -299,7 +299,7 @@ def plot_motion_state_counts(df: pd.DataFrame) -> None:
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    filepath = sys.argv[1] if len(sys.argv) > 1 else "data/motion_events.jsonl"
+    filepath = sys.argv[1] if len(sys.argv) > 1 else "data/events.jsonl"
 
     print(f"\n📂  Loading events from: {filepath}")
     df = load_events(filepath)
