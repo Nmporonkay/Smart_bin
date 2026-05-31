@@ -73,7 +73,7 @@ services:
     volumes:
       - events-data:/app/output
     restart: unless-stopped
-    command: ["python", "consumer.py", "--out", "/app/output/events.jsonl"]
+    command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
 
 volumes:
   mosquitto-data:
