@@ -61,8 +61,15 @@ services:
       - net.ipv6.conf.all.disable_ipv6=1
     privileged: true
     devices:
-      - "/dev/gpiomem:/dev/gpiomem"
+      - "/dev/gpiomem:/dev/gpiomem0"
       - "/dev/gpiochip0:/dev/gpiochip0"
+      - "/dev/gpiochip1:/dev/gpiochip1"
+      - "/dev/gpiochip2:/dev/gpiochip2"
+      - "/dev/gpiochip3:/dev/gpiochip3"
+      - "/dev/gpiochip4:/dev/gpiochip4"
+    group_add:
+      - gpio
+      - dialout
     environment:
       PYTHONUNBUFFERED: "1"
       MQTT_BROKER: "broker"   # Quoted and using container_name
