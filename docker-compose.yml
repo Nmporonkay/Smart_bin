@@ -36,9 +36,6 @@ services:
     devices:
       - "/dev/gpiomem:/dev/gpiomem"
       - "/dev/gpiochip0:/dev/gpiochip0"
-    group_add:
-      - gpio
-      - dialout
     environment:
       PYTHONUNBUFFERED: "1"
       MQTT_BROKER: "broker"   # Quoted and using container_name
