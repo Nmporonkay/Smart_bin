@@ -75,9 +75,74 @@ services:
     restart: unless-stopped
     command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
 
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: smartbin-api
+    depends_on:
+      broker:
+        condition: service_healthy
+    networks:
+      - smartbin-net
+    environment:
+      MQTT_BROKER: "broker"
+      MQTT_PORT: "1883"
+    volumes:
+      - events-data:/app/output  # shares JSONL with consumer
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  node-red:
+    build:
+      context: .
+      dockerfile: node_red/Dockerfile
+    container_name: smartbin-nodered
+    depends_on:
+      broker:
+        condition: service_healthy
+    networks:
+      - smartbin-net
+    ports:
+      - "1880:1880"
+    volumes:
+      - nodered-data:/data
+    restart: unless-stopped
+
+  virtual-sensor-rules:
+    build:
+      context: .
+      dockerfile: ml_model/Dockerfile
+    container_name: smartbin-rules
+    depends_on:
+      broker:
+        condition: service_healthy
+    networks:
+      - smartbin-net
+    environment:
+      MQTT_BROKER: "broker"
+    restart: unless-stopped
+
+  virtual-sensor-ml:
+    build:
+      context: .
+      dockerfile: ml_model/Dockerfile
+    container_name: smartbin-ml
+    depends_on:
+      broker:
+        condition: service_healthy
+    networks:
+      - smartbin-net
+    environment:
+      MQTT_BROKER: "broker"
+    command: ["python", "virtual_sensor_ml.py", "--broker", "broker"]
+    restart: unless-stopped
+
 volumes:
   mosquitto-data:
   events-data:
+  nodered-data:
 
 networks:
   smartbin-net:
