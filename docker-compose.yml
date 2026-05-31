@@ -106,7 +106,7 @@ services:
     ports:
       - "8123:8123"
     volumes:
-      - homeassistant-data:/config
+      - /home/iotlab_upoat_3/homeassistant/config:/config
     privileged: true
     restart: unless-stopped
 #------------NODE-RED-----------------
