@@ -78,7 +78,7 @@ def main():
     ha_event_count_topic  = f"smartbin/{args.bin_id}/pir-01/event_count"
 
     client = mqtt.Client(callback_api_version=mqtt.CallbackAPIVersion.VERSION2)
-
+    
     try:
         print(f"[producer] Connecting to broker at {args.broker}:{args.port}...")
         client.connect(args.broker, args.port, 60)
@@ -89,12 +89,16 @@ def main():
 
         publish_ha_discovery(client, args.bin_id, args.device_id, args.qos)
 
+       
+        client.publish(ha_motion_state_topic, "clear", qos=args.qos)
+        last_ha_state = "clear"
+        
+        
         sampler = PirSampler(args.pin)
         interpreter = PirInterpreter(
             cooldown_s=args.cooldown,
             min_high_s=args.min_high
         )
-
         run_id = str(uuid.uuid4())
         seq = 0
 
