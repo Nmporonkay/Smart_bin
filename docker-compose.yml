@@ -98,7 +98,7 @@ services:
   node-red:
     build:
       context: ./node_red
-      dockerfile: node_red/Dockerfile
+      dockerfile: Dockerfile
     container_name: smartbin-nodered
     ports:
       - "1880:1880"
