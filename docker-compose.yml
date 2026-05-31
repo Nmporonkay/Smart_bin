@@ -38,7 +38,7 @@ services:
       - "/dev/gpiochip0:/dev/gpiochip0"
     environment:
       PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "broker"   # Quoted and using container_name
+      MQTT_BROKER: "broker"
       MQTT_PORT: "1883"
       MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
@@ -61,20 +61,18 @@ services:
         condition: service_healthy
     networks:
       - smartbin-net
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       PYTHONUNBUFFERED: "1"
-      MQTT_BROKER: "broker"   # Quoted and using container_name
+      MQTT_BROKER: "broker"
       MQTT_PORT: "1883"
       MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
       QOS: "1"
       VERBOSE: "true"
     volumes:
-      - ./data:/home/iotlab_upat_3/labs/Smart_bin/data 
+      - ./data:/app/output    # bind mount → events land in ~/labs/Smart_bin/data/
     restart: unless-stopped
-    command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
-#----------API-------------
+
+  # ─── API ────────────────────────────────────────────────────────
   api:
     build:
       context: .
@@ -89,12 +87,12 @@ services:
       MQTT_BROKER: "broker"
       MQTT_PORT: "1883"
     volumes:
-      - events-data:/app/output  # shares JSONL with consumer
+      - ./data:/app/output    # same bind mount → API reads the same events file
     ports:
       - "5000:5000"
     restart: unless-stopped
 
-
+  # ─── Home Assistant ─────────────────────────────────────────────
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: smartbin-homeassistant
@@ -109,7 +107,7 @@ services:
       - /home/iotlab_upat_3/homeassistant/config:/config
     privileged: true
     restart: unless-stopped
-#------------NODE-RED-----------------
+
   # ─── Node-RED ───────────────────────────────────────────────────
   node-red:
     build:
@@ -128,7 +126,8 @@ services:
     restart: unless-stopped
     volumes:
       - nodered-data:/data
-#------------ML_MODEL------------
+
+  # ─── Virtual Sensor (rules-based) ───────────────────────────────
   virtual-sensor-rules:
     build:
       context: .
@@ -143,6 +142,7 @@ services:
       MQTT_BROKER: "broker"
     restart: unless-stopped
 
+  # ─── Virtual Sensor (ML-based) ──────────────────────────────────
   virtual-sensor-ml:
     build:
       context: .
@@ -161,7 +161,6 @@ services:
 volumes:
   mosquitto-data:
   nodered-data:
-  homeassistant-data:
 
 networks:
   smartbin-net:

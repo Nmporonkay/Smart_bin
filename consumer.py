@@ -1,18 +1,19 @@
 import argparse
 import json
-from datetime import datetime, timezone
 import os
+from datetime import datetime, timezone
+
 import paho.mqtt.client as mqtt
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="PIR Motion Event Consumer")
     parser.add_argument("--broker", type=str, default=os.environ.get("MQTT_BROKER", "localhost"))
-    parser.add_argument("--port",   type=int, default=int(os.environ.get("MQTT_PORT", 1883)))    
-    parser.add_argument("--topic", type=str, default="smartbin/bin-01/pir-01/events")
-    parser.add_argument("--qos", type=int, default=1, choices=[0, 1, 2])
-    parser.add_argument("--out", type=str, default="events.jsonl")
-    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--port",   type=int, default=int(os.environ.get("MQTT_PORT", 1883)))
+    parser.add_argument("--topic",  type=str, default=os.environ.get("MQTT_TOPIC", "smartbin/bin-01/pir-01/events"))
+    parser.add_argument("--qos",    type=int, default=int(os.environ.get("QOS", 1)), choices=[0, 1, 2])
+    parser.add_argument("--out",    type=str, default="/app/output/events.jsonl")
+    parser.add_argument("--verbose", action="store_true", default=os.environ.get("VERBOSE", "").lower() == "true")
     return parser.parse_args()
 
 
@@ -43,6 +44,9 @@ def make_on_message(output_path, verbose, metrics):
                           f"avg latency: {avg_latency:.3f}ms")
             else:
                 print("[consumer] Warning: no timestamp_utc field in record.")
+
+            # Ensure output directory exists
+            os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
             # Write to JSONL
             with open(output_path, "a", encoding="utf-8") as f:
