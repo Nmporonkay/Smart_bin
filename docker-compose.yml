@@ -71,7 +71,7 @@ services:
       QOS: "1"
       VERBOSE: "true"
     volumes:
-      - events-data:/app/output
+      - ./data:/app/output 
     restart: unless-stopped
     command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
 #----------API-------------
@@ -160,7 +160,6 @@ services:
 
 volumes:
   mosquitto-data:
-  events-data:
   nodered-data:
   homeassistant-data:
 
