@@ -94,20 +94,21 @@ services:
       - "5000:5000"
     restart: unless-stopped
 #------------NODE-RED-----------------
+  # ─── Node-RED ───────────────────────────────────────────────────
   node-red:
     build:
-      context: .
-      dockerfile: node_red/Dockerfile
+      context: ./nodered
+      dockerfile: Dockerfile
     container_name: smartbin-nodered
+    ports:
+      - "1880:1880"
     depends_on:
       broker:
         condition: service_healthy
     networks:
       - smartbin-net
-    ports:
-      - "1880:1880"
-    volumes:
-      - nodered-data:/data
+    environment:
+      - FLOWS=flows.json
     restart: unless-stopped
 #------------ML_MODEL------------
   virtual-sensor-rules:
