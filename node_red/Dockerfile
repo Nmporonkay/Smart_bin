@@ -9,7 +9,6 @@ RUN npm install --prefix /usr/src/node-red node-red-dashboard@3.6.6
 COPY node_red/flows.json /usr/src/node-red/flows.json
 
 # Fix permissions so the internal node-red user owns our boot scripts
-RUN chown -R node-red:node-red /usr/src/node-red
 
 USER node-red
 
