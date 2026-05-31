@@ -6,7 +6,7 @@ USER root
 RUN npm install --prefix /usr/src/node-red node-red-dashboard@3.6.6
 
 # ─── FIXED PATH: Save the template file directly to the root namespace ───
-COPY flows.json /flows_default.json
+COPY node_red/flows.json /flows_default.json
 RUN chmod 644 /flows_default.json
 # ─────────────────────────────────────────────────────────────────────────
 
