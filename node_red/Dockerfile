@@ -5,12 +5,10 @@ USER root
 # Install node-red-dashboard (the AngularJS version used by the flows)
 RUN npm install --prefix /usr/src/node-red node-red-dashboard@3.6.6
 
-# Copy the default flows to a non-volume path so the file survives volume mounts.
-# /data is declared as VOLUME in the base image, so files written there during
-# the build are discarded at runtime. We keep the template outside /data and
-# copy it into /data on first start via the node-red-start script below.
-COPY node_red/flows.json /flows_default.json
+# ─── FIXED PATH: Save the template file directly to the root namespace ───
+COPY flows.json /flows_default.json
 RUN chmod 644 /flows_default.json
+# ─────────────────────────────────────────────────────────────────────────
 
 # Create the node-red-start wrapper script.
 # On first run it seeds /data/flows.json from the baked-in template.
@@ -23,6 +21,9 @@ fi\n\
 exec node-red --flowFile /data/flows.json --userDir /data\n' \
     > /usr/local/bin/node-red-start \
  && chmod +x /usr/local/bin/node-red-start
+
+# Fix permissions so the internal node-red user owns our boot scripts
+RUN chown -R node-red:node-red /data /flows_default.json /usr/local/bin/node-red-start
 
 USER node-red
 
