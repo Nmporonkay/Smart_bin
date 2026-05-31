@@ -8,4 +8,4 @@ COPY flows.json /data/flows.json
 
 USER node-red
 
-command: ["node-red", "--userDir", "/data", "--flowFile", "/usr/src/node-red/flows.json"]
+CMD ["node-red", "--userDir", "/data", "--flowFile", "/usr/src/node-red/flows.json"]
