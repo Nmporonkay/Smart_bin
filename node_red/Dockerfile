@@ -6,7 +6,7 @@ USER root
 RUN npm install --prefix /usr/src/node-red node-red-dashboard@3.6.6
 
 # ─── FIXED PATH: Save the template file directly to the root namespace ───
-COPY flows.json /usr/src/node-red/flows.json
+COPY node_red/flows.json /usr/src/node-red/flows.json
 
 # Fix permissions so the internal node-red user owns our boot scripts
 RUN chown -R node-red:node-red /usr/src/node-red
