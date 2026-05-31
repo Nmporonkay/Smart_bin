@@ -110,6 +110,8 @@ services:
     environment:
       - FLOWS=flows.json
     restart: unless-stopped
+    volumes:
+      - nodered-data:/data
 #------------ML_MODEL------------
   virtual-sensor-rules:
     build:
