@@ -74,7 +74,7 @@ services:
       - events-data:/app/output
     restart: unless-stopped
     command: ["python", "consumer.py", "--out", "/app/output/events.jsonl","--verbose"]
-
+#----------API-------------
   api:
     build:
       context: .
@@ -93,7 +93,7 @@ services:
     ports:
       - "5000:5000"
     restart: unless-stopped
-
+#------------NODE-RED-----------------
   node-red:
     build:
       context: .
@@ -109,7 +109,7 @@ services:
     volumes:
       - nodered-data:/data
     restart: unless-stopped
-
+#------------ML_MODEL------------
   virtual-sensor-rules:
     build:
       context: .

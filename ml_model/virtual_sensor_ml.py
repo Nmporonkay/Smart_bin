@@ -139,10 +139,10 @@ def main() -> None:
         description="ML virtual sensor: predict next-hour activity and publish via MQTT."
     )
     parser.add_argument(
-        "--broker",
-        default="localhost",
-        help="MQTT broker hostname or IP address (default: localhost)",
-    )
+    "--broker",
+    default=os.environ.get("MQTT_BROKER", "localhost"),
+    help="MQTT broker hostname or IP address (default: localhost)",
+)
     parser.add_argument(
         "--port",
         type=int,

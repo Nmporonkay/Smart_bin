@@ -1,0 +1,24 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "lab05": "Context-aware Data Modeling",
+    "pipeline": "https://github.com/Nmporonkay/Adv_Techs_Lab/blob/main/docs/ontology.md#"
+  },
+  "@id": "urn:dev:team3:pir-01",
+  "@type": "Sensor",
+  "model": "HC-SR501",
+  "name": "PIR Motion Sensor 01",
+  "description": "HC-SR501 passive infrared motion sensor",
+  "observes": "motion",
+  "gpioPin": 17,
+  "operatingVoltage": "5V",
+  "operatingTemperature": "0 to 40 C",
+  "detectionRangeM": 1.5,
+  "cooldownSeconds": 2.0,
+  "mountedOn": "urn:dev:team3:wastebin:bin-01",
+  "deployedIn": "urn:dev:team3:upatras:kypes-lab"
+
+
+}

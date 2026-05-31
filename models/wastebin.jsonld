@@ -1,0 +1,21 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "sosa": "http://www.w3.org/ns/sosa/",
+    "ssn": "http://www.w3.org/ns/ssn/",
+    "lab801": "your own context?",
+    "pipeline": "https://github.com/Nmporonkay/Adv_Techs_Lab/blob/main/docs/ontology.md#"
+
+  },
+  "@id": "urn:dev:team3:wastebin:bin-01",
+  "@type": "Bin",
+  "name": "Smart Waste Bin",
+  "description": "Bin with motion sensor that detects when it's full",
+  "capacityLiters": 0.48,
+  "material": "plastic",
+  "color": "grey",
+  "hasSensor": ["urn:dev:team3:pir-01"],
+  "locatedIn": "urn:dev:team3:upatras:kypes-lab"
+
+
+}

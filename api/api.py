@@ -145,7 +145,8 @@ mqtt_client = mqtt.Client(
     callback_api_version=mqtt.CallbackAPIVersion.VERSION2
 )
 mqtt_client.on_message = on_message
-mqtt_client.connect("localhost", 1883, 60)
+MQTT_BROKER_HOST = os.environ.get("MQTT_BROKER", "localhost")
+mqtt_client.connect(MQTT_BROKER_HOST, 1883, 60)
 mqtt_client.subscribe("smartbin/#", qos=1)
 mqtt_client.loop_start()
 

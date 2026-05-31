@@ -12,6 +12,7 @@ import argparse
 from collections import deque
 from threading import Lock
 from datetime import datetime, timezone, timedelta
+import os
 
 import paho.mqtt.client as mqtt
 
@@ -114,10 +115,10 @@ def main() -> None:
         description="Virtual sensor rules: publish time-windowed usage levels via MQTT."
     )
     parser.add_argument(
-        "--broker",
-        default="localhost",
-        help="MQTT broker hostname or IP address (default: localhost)",
-    )
+    "--broker",
+    default=os.environ.get("MQTT_BROKER", "localhost"),
+    help="MQTT broker hostname or IP address (default: localhost)",
+)
     parser.add_argument(
         "--port",
         type=int,
