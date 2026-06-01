@@ -88,9 +88,11 @@ def main():
         print(f"[producer] Status 'online' published to {args.status_topic}")
 
         publish_ha_discovery(client, args.bin_id, args.device_id, args.qos)
+        time.sleep(1.0)
 
        
-        client.publish(ha_motion_state_topic, "clear", qos=args.qos, retain=True)
+       
+        client.publish(ha_motion_state_topic, "clear", qos=args.qos)
         last_ha_state = "clear"
         
         
