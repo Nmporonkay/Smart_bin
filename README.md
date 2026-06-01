@@ -1,129 +1,97 @@
-# Smart Bin — Lab 06 (Dockerized)
+Alright. If you are here it means you want to run our program, so let's see how to do that. 
 
-## Repository Structure
+At first, you need a sensor, such as HC‑SR501, or any other sensor in fact, that connects to a Rasberry Pi operating system, or any other os, and the source code, with the exact paths the same as presented in the repository. 
 
-```
-lab06/
-├── docker-compose.yml
-├── requirements.txt
-├── producer.py
-├── consumer.py
-├── mosquitto/
-│   └── mosquitto.conf
-├── producer/
-│   └── Dockerfile
-├── consumer/
-│   └── Dockerfile
-└── pirlib/
-    ├── __init__.py
-    ├── sampler.py       ← supports mock mode for non-Pi environments
-    └── interpreter.py
-```
+Connect three wires from the sensor as follows:
 
----
+- left(ground) ===> ground
+- middle(output) ===> gpio pin 17
+- right(+power) ===> 5V
 
-## Running with Docker (recommended)
+![alt text](image.png)
 
-### Prerequisites
-- [Docker](https://docs.docker.com/get-docker/) installed
-- [Docker Compose](https://docs.docker.com/compose/) (included in Docker Desktop)
+Next thing you need to do, is connect through your terminal via ssh. You have to know the ip address of your pi. 
+Just type: 
 
-### Start everything
 
-```bash
+- ssh username_in_pi@123.456.78.9
+
+
+in your terminal.
+
+Once your in, you have to change the working directory. 
+Type: 
+
+cd home_or_whatever/path_to_where_you_git-pulled 
+
+Next being thing is one important command: 
+
 docker compose up --build
-```
 
-This starts 3 services: **broker** (Mosquitto), **producer**, and **consumer**.
+this builds the entire application, from start to finish. 
+Congratulations! You launched our project. 
 
-The producer runs in **mock mode** by default — it simulates PIR sensor events
-without needing real GPIO hardware. To stop:
+It downloads anything you don't have, and launches everything. 
+--build is not a necessary part of the command, but it rebuilds the whole docker image everytime. If you haven't made locally any change, docker compose up should be alright. 
 
-```bash
-docker compose down
-```
+NOW: 
+If you ACTUALLY want to use it, there's a bit more...
 
-### View consumer output (events JSONL)
+You can see many types of messages from the program, if you subscribe to the right topic, according to our setted structure. 
 
-```bash
-docker exec smartbin-consumer cat output/events.jsonl
-```
+These lines, show the most important messages you can get. What you will see after that is easily assesed. + means that you subscribe to all the possible topics one layer ahead, and # means that you subscribe to all possible topics all layers ahead. 
 
-Or follow it live:
+smartbin/{bin-id}/{sensor-id}/{message-type}
 
-```bash
-docker exec smartbin-consumer tail -f output/events.jsonl
-```
+mosquitto_sub -h localhost -t "smartbin/#" -v
 
-### Run on real Raspberry Pi hardware
+mosquitto_sub -h localhost -t "smartbin/bin-01/pir-01/events" -v
 
-1. In `docker-compose.yml`, uncomment under the `producer` service:
-   ```yaml
-   privileged: true
-   devices:
-     - /dev/gpiomem:/dev/gpiomem
-   ```
-2. Change the `MOCK` environment variable to `"false"`:
-   ```yaml
-   MOCK: "false"
-   ```
-3. Run `docker compose up --build`
+mosquitto_sub -h localhost -t "smartbin/bin-01/+/events" -v
 
----
+mosquitto_sub -h localhost -t "smartbin/+/pir-01/events" -v
 
-## Running without Docker (manual)
+mosquitto_sub -h localhost -t "smartbin/bin-01/usage" -v
 
-### Install dependencies
+mosquitto_sub -h localhost -t "smartbin/bin-01/prediction" -v
 
-```bash
-pip install -r requirements.txt
-```
+mosquitto_sub -h localhost -t "smartbin/bin-01/+" -v
 
-### Install and start Mosquitto broker
+Here's a diagram of the structure, so that you know how to go anywhere. 
 
-```bash
-sudo apt-get install -y mosquitto mosquitto-clients
-sudo systemctl start mosquitto
-```
 
-### Step 1 — Start the consumer
+smartbin
+│
+├── bin-01
+│   │
+│   ├── pir-01
+│   │   └── events
+│   │       └── Raw motion events (JSON-LD)
+│   │
+│   ├── usage
+│   │   └── Rules-based usage level
+│   │
+│   └── prediction
+│       └── ML future activity prediction
+│
+├── bin-02
+│   └── ...
+│
+└── bin-N
+    └── ...
 
-```bash
-python consumer.py \
-  --broker localhost \
-  --port 1883 \
-  --topic "smartbin/bin-01/pir-01/events" \
-  --out events.jsonl \
-  --qos 1 \
-  --verbose
-```
+That's pretty much it. As long as you connected everything correctly and followed the instructions faithfully, everything should be working fine. 
 
-### Step 2 — Start the producer
+If you want to go go EVEN FURTHER, stay with me. 
+In the working directory, run:
+python analyze.py
 
-```bash
-python producer.py \
-  --broker localhost \
-  --port 1883 \
-  --topic "smartbin/bin-01/pir-01/events" \
-  --pin 17 \
-  --cooldown 2.0 \
-  --min-high 0.1 \
-  --sample-interval 0.1 \
-  --qos 1 \
-  --verbose
-```
+in, a directory named charts, you will see your results. They will help you after a long time, if you want to make statistical analysis for the events the sensor detects. 
 
----
+If you want to see what is going on on Home Assistant, click http://<your-pi-ip>:8123 on your browser. There you will configure your system after you make your account, or paste our own configuration, if you find it practical. It's missing home_assistant_core.yml, so you 'll have to make sth of your own. 
 
-## Changes in this version
+To see your model built in Node-Red, click http:/<your-pi-ip>:1880
 
-| File | Change |
-|---|---|
-| `sampler.py` | Added mock mode — simulates PIR events when `MOCK=true` |
-| `producer.py` | JSON-LD `@context` moved to module-level constant; reads config from env vars |
-| `consumer.py` | Output file kept open for lifetime of process (not re-opened per message); reads config from env vars |
-| `requirements.txt` | Versions pinned for reproducible Docker builds |
-| `docker-compose.yml` | New — orchestrates broker + producer + consumer |
-| `mosquitto/mosquitto.conf` | New — broker configuration |
-| `producer/Dockerfile` | New |
-| `consumer/Dockerfile` | New |
+And, if you want to see your data live resting on REST-API, click  http://<your-pi-ip>:5000 
+
+That, was all, enjoy. 

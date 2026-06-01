@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_dashboards",
+  "data": {
+    "items": [
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "show_in_sidebar": true,
+        "require_admin": false,
+        "mode": "storage"
+      },
+      {
+        "id": "iotlab_3",
+        "show_in_sidebar": true,
+        "title": "iotlab_3",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "iotlab-3"
+      }
+    ]
+  }
+}

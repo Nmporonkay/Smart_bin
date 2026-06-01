@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "trace.saved_traces",
+  "data": {
+    "automation.1777660966094": [
+      {
+        "extended_dict": {
+          "last_step": "condition/0",
+          "run_id": "9adf7b01fa857faf59c78759e631a3e5",
+          "state": "stopped",
+          "script_execution": "failed_conditions",
+          "timestamp": {
+            "start": "2026-06-01T18:42:25.966215+00:00",
+            "finish": "2026-06-01T18:42:25.966407+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777660966094",
+          "trigger": "numeric state of sensor.smart_wastebin_01_motion_event_count",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-06-01T18:42:25.966284+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.wastebin_alert",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777660966094",
+                      "last_triggered": "2026-06-01T16:29:20.653533+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Wastebin Alert"
+                    },
+                    "last_changed": "2026-06-01T18:40:07.779664+00:00",
+                    "last_reported": "2026-06-01T18:40:07.779664+00:00",
+                    "last_updated": "2026-06-01T18:40:07.779664+00:00",
+                    "context": {
+                      "id": "01KT27RVK39BMW7VGNQN3AEE65",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "numeric_state",
+                    "entity_id": "sensor.smart_wastebin_01_motion_event_count",
+                    "below": null,
+                    "above": 25.0,
+                    "from_state": {
+                      "entity_id": "sensor.smart_wastebin_01_motion_event_count",
+                      "state": "unknown",
+                      "attributes": {
+                        "unit_of_measurement": "events",
+                        "icon": "mdi:counter",
+                        "friendly_name": "Smart Wastebin bin-01 Motion Event Count",
+                        "state_class": "total_increasing",
+                        "device_class": "monetary"
+                      },
+                      "last_changed": "2026-06-01T18:40:08.338529+00:00",
+                      "last_reported": "2026-06-01T18:40:08.342613+00:00",
+                      "last_updated": "2026-06-01T18:40:08.342613+00:00",
+                      "context": {
+                        "id": "01KT27RW4P1J64GKKB6KPEBD7G",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.smart_wastebin_01_motion_event_count",
+                      "state": "72",
+                      "attributes": {
+                        "unit_of_measurement": "events",
+                        "icon": "mdi:counter",
+                        "friendly_name": "Smart Wastebin bin-01 Motion Event Count",
+                        "state_class": "total_increasing",
+                        "device_class": "monetary"
+                      },
+                      "last_changed": "2026-06-01T18:42:25.965502+00:00",
+                      "last_reported": "2026-06-01T18:42:25.965502+00:00",
+                      "last_updated": "2026-06-01T18:42:25.965502+00:00",
+                      "context": {
+                        "id": "01KT27X2HD9ACWTQNVVREFJGZN",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "description": "numeric state of sensor.smart_wastebin_01_motion_event_count"
+                  }
+                }
+              }
+            ],
+            "condition/0": [
+              {
+                "path": "condition/0",
+                "timestamp": "2026-06-01T18:42:25.966330+00:00",
+                "result": {
+                  "after": {
+                    "__type": "<class 'datetime.time'>",
+                    "isoformat": "08:00:00"
+                  },
+                  "now_time": {
+                    "__type": "<class 'datetime.time'>",
+                    "isoformat": "21:42:25.966363"
+                  },
+                  "before": {
+                    "__type": "<class 'datetime.time'>",
+                    "isoformat": "20:00:00"
+                  },
+                  "result": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777660966094",
+            "alias": "Wastebin Alert",
+            "description": "Notifies exactly once when the bin reaches high capacity",
+            "triggers": [
+              {
+                "entity_id": [
+                  "sensor.smart_wastebin_01_motion_event_count"
+                ],
+                "above": 25,
+                "trigger": "numeric_state"
+              }
+            ],
+            "conditions": [
+              {
+                "condition": "time",
+                "after": "08:00:00",
+                "before": "20:00:00"
+              }
+            ],
+            "actions": [
+              {
+                "data": {
+                  "title": "\ud83d\udd34 Wastebin Alert",
+                  "message": "Bin-01 has reached high capacity (over 25 events). Please schedule a pickup."
+                },
+                "action": "persistent_notification.create"
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KT27X2HE977EK3DFP9MKFQQD",
+            "parent_id": "01KT27X2HD9ACWTQNVVREFJGZN",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "condition/0",
+          "run_id": "9adf7b01fa857faf59c78759e631a3e5",
+          "state": "stopped",
+          "script_execution": "failed_conditions",
+          "timestamp": {
+            "start": "2026-06-01T18:42:25.966215+00:00",
+            "finish": "2026-06-01T18:42:25.966407+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777660966094",
+          "trigger": "numeric state of sensor.smart_wastebin_01_motion_event_count"
+        }
+      }
+    ]
+  }
+}

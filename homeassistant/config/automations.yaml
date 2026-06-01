@@ -1,0 +1,63 @@
+- id: '1777656427443'
+  alias: Count motion events
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.smart_wastebin_bin_01_pir_motion_sensor
+    to:
+    - 'on'
+  conditions: []
+  actions:
+  - action: counter.increment
+    target:
+      entity_id: counter.wastebin_motion_count
+    data: {}
+  mode: single
+- id: '1777660966094'
+  alias: Wastebin Alert
+  description: Notifies exactly once when the bin reaches high capacity
+  triggers:
+  - entity_id:
+    - sensor.smart_wastebin_01_motion_event_count
+    above: 25
+    trigger: numeric_state
+  conditions:
+  - condition: time
+    after: 08:00:00
+    before: '20:00:00'
+  actions:
+  - data:
+      title: "\U0001F534 Wastebin Alert"
+      message: Bin-01 has reached high capacity (over 25 events). Please schedule
+        a pickup.
+    action: persistent_notification.create
+  mode: single
+- id: '1777661173927'
+  alias: Daily Reset
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - action: counter.reset
+    metadata: {}
+    target:
+      entity_id: counter.wastebin_motion_count
+    data: {}
+  mode: single
+- id: '1780345652002'
+  alias: Notification to empty the bin
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      payload: '{   "bin_id": "bin-01",   "emptied_at": "string" }'
+      topic: bins/bin_01/emptied
+  conditions: []
+  actions:
+  - action: persistent_notification.create
+    metadata: {}
+    data: {}
+  mode: single

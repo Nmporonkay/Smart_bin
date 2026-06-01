@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "core.restore_state",
+  "data": [
+    {
+      "state": {"entity_id":"conversation.home_assistant","state":"2026-05-04T15:17:01.762419+00:00","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-06-01T18:48:23.229749+00:00","last_reported":"2026-06-01T18:48:23.229749+00:00","last_updated":"2026-06-01T18:48:23.229749+00:00","context":{"id":"01KT287ZDXBMBSP6ZHPAW9HMWW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-06-01T18:48:23.262747+00:00","last_reported":"2026-06-01T18:48:23.262747+00:00","last_updated":"2026-06-01T18:48:23.262747+00:00","context":{"id":"01KT287ZEYYAF0YZGV92NTGHN1","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "last_event_type": null,
+        "last_event_attributes": null
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"person.iotlab_3","state":"unknown","attributes":{"editable":true,"id":"iotlab_3","device_trackers":[],"user_id":"0563083be5a040a0b9c94045d6eae71a","friendly_name":"iotlab_3"},"last_changed":"2026-06-01T18:48:28.473272+00:00","last_reported":"2026-06-01T18:48:31.684874+00:00","last_updated":"2026-06-01T18:48:31.684874+00:00","context":{"id":"01KT2887P41B3P9Z5JNE5N8Q22","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"counter.wastebin_motion_count","state":"0","attributes":{"editable":true,"initial":0,"step":1,"icon":"mdi:motion-sensor","friendly_name":"Wastebin Motion Count"},"last_changed":"2026-06-01T18:48:29.495059+00:00","last_reported":"2026-06-01T18:48:29.495059+00:00","last_updated":"2026-06-01T18:48:29.495059+00:00","context":{"id":"01KT2885HQRJS0DFQ8PGKZVBE5","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-06-01T18:48:29.599813+00:00","last_reported":"2026-06-01T18:48:29.599813+00:00","last_updated":"2026-06-01T18:48:29.599813+00:00","context":{"id":"01KT2885MZHKH1MWSVE2W60XWH","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.count_motion_events","state":"on","attributes":{"id":"1777656427443","last_triggered":null,"mode":"single","current":0,"friendly_name":"Count motion events"},"last_changed":"2026-06-01T18:48:29.609195+00:00","last_reported":"2026-06-01T18:48:29.609195+00:00","last_updated":"2026-06-01T18:48:29.609195+00:00","context":{"id":"01KT2885N9GKB33FDWGP1EV02T","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.wastebin_alert","state":"on","attributes":{"id":"1777660966094","last_triggered":"2026-06-01T16:29:20.653533+00:00","mode":"single","current":0,"friendly_name":"Wastebin Alert"},"last_changed":"2026-06-01T18:48:29.609378+00:00","last_reported":"2026-06-01T18:48:29.609378+00:00","last_updated":"2026-06-01T18:48:29.609378+00:00","context":{"id":"01KT2885N9RSR73ZMHDRPZRPHV","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.daily_reset","state":"on","attributes":{"id":"1777661173927","last_triggered":"2026-06-01T21:00:00.197759+00:00","mode":"single","current":0,"friendly_name":"Daily Reset"},"last_changed":"2026-06-01T18:48:29.609493+00:00","last_reported":"2026-06-01T21:00:00.198639+00:00","last_updated":"2026-06-01T21:00:00.198639+00:00","context":{"id":"01KT2FRZA5J6YAB50FRP703VPQ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.smartbin_bin_01_smartbin_bin_01_motion","state":"unavailable","attributes":{"device_class":"motion","friendly_name":"SmartBin bin-01 SmartBin bin-01 Motion"},"last_changed":"2026-06-01T21:17:41.634062+00:00","last_reported":"2026-06-01T21:17:41.634062+00:00","last_updated":"2026-06-01T21:17:41.634062+00:00","context":{"id":"01KT2GSBW22G8FEQPTVGYWPXVP","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_01_motion_event_count","state":"unavailable","attributes":{"unit_of_measurement":"events","icon":"mdi:counter","friendly_name":"Smart Wastebin bin-01 Motion Event Count"},"last_changed":"2026-06-01T21:17:41.634155+00:00","last_reported":"2026-06-01T21:17:41.634155+00:00","last_updated":"2026-06-01T21:17:41.634155+00:00","context":{"id":"01KT2GSBW2DA6ZBP5RZ03YKCP2","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "146",
+        "native_unit_of_measurement": "events"
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_bin_01_activity_prediction","state":"unavailable","attributes":{"icon":"mdi:brain","friendly_name":"Smart Wastebin bin-01 Activity Prediction"},"last_changed":"2026-06-01T21:17:41.634197+00:00","last_reported":"2026-06-01T21:17:41.634197+00:00","last_updated":"2026-06-01T21:17:41.634197+00:00","context":{"id":"01KT2GSBW2QAJ7TNVRGEZ9A478","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "quiet",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_bin_01_prediction_confidence","state":"unavailable","attributes":{"unit_of_measurement":"%","icon":"mdi:percent","friendly_name":"Smart Wastebin bin-01 Prediction Confidence"},"last_changed":"2026-06-01T21:17:41.634226+00:00","last_reported":"2026-06-01T21:17:41.634226+00:00","last_updated":"2026-06-01T21:17:41.634226+00:00","context":{"id":"01KT2GSBW2WNXHF6GKM6BV9B41","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "100.0",
+        "native_unit_of_measurement": "%"
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_01_wastebin_status","state":"unavailable","attributes":{"friendly_name":"SmartBin bin-01 Wastebin Status"},"last_changed":"2026-06-01T21:17:41.634252+00:00","last_reported":"2026-06-01T21:17:41.634252+00:00","last_updated":"2026-06-01T21:17:41.634252+00:00","context":{"id":"01KT2GSBW2H7SW495VY4XB39SX","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smartbin_bin_01_node_red_usage_pipeline","state":"unavailable","attributes":{"icon":"mdi:pipe-valve","friendly_name":"SmartBin bin-01 Node-RED Usage Pipeline","state_class":"total_increasing","unit_of_measurement":"events"},"last_changed":"2026-06-01T21:17:41.634276+00:00","last_reported":"2026-06-01T21:17:41.634276+00:00","last_updated":"2026-06-01T21:17:41.634276+00:00","context":{"id":"01KT2GSBW2CFXNPSP7WXP3GQYH","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "Medium",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.notification_to_empty_the_bin","state":"on","attributes":{"id":"1780345652002","last_triggered":null,"mode":"single","current":0,"friendly_name":"Notification to empty the bin"},"last_changed":"2026-06-01T20:28:06.620161+00:00","last_reported":"2026-06-01T20:28:06.620347+00:00","last_updated":"2026-06-01T20:28:06.620161+00:00","context":{"id":"01KT2DYJJWVRN978JSYA1Q7XSR","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-06-01T21:18:31.692328+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.pir_sensor_01_pir_motion_sensor","state":"unavailable","attributes":{"device_class":"motion","friendly_name":"PIR Sensor 01 PIR Motion Sensor"},"last_changed":"2026-05-30T16:51:57.906018+00:00","last_reported":"2026-05-30T16:51:57.906018+00:00","last_updated":"2026-05-30T16:51:57.906018+00:00","context":{"id":"01KSWWSBTJ9SCZ7FA4DJRPZ2DW","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-30T17:09:59.735444+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.smart_wastebin_bin_01_pir_motion_sensor","state":"unavailable","attributes":{"device_class":"motion","friendly_name":"Smart Wastebin bin-01 PIR Motion Sensor"},"last_changed":"2026-05-30T16:51:57.906095+00:00","last_reported":"2026-05-30T16:51:57.906095+00:00","last_updated":"2026-05-30T16:51:57.906095+00:00","context":{"id":"01KSWWSBTJWZFQZH6G6ST1Z1TH","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-30T17:09:59.735444+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_bin_01_wastebin_status","state":"unavailable","attributes":{"friendly_name":"Smart Wastebin bin-01 Wastebin Status"},"last_changed":"2026-05-30T16:51:57.906217+00:00","last_reported":"2026-05-30T16:51:57.906217+00:00","last_updated":"2026-05-30T16:51:57.906217+00:00","context":{"id":"01KSWWSBTJ9PPHVM7A60R1YJ7Y","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "inactive",
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-05-30T17:09:59.735444+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_bin_01_motion_event_count","state":"unavailable","attributes":{"unit_of_measurement":"events","icon":"mdi:motion-sensor","friendly_name":"Smart Wastebin bin-01 Motion Event Count"},"last_changed":"2026-05-30T16:51:57.906235+00:00","last_reported":"2026-05-30T16:51:57.906235+00:00","last_updated":"2026-05-30T16:51:57.906235+00:00","context":{"id":"01KSWWSBTJ0SKNJGD4N3B0YW3D","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": "7",
+        "native_unit_of_measurement": "events"
+      },
+      "last_seen": "2026-05-30T17:09:59.735444+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.smart_wastebin_bin_01_pipeline_latency","state":"unavailable","attributes":{"unit_of_measurement":"ms","icon":"mdi:timer-outline","friendly_name":"Smart Wastebin bin-01 Pipeline Latency"},"last_changed":"2026-05-30T16:51:57.906253+00:00","last_reported":"2026-05-30T16:51:57.906253+00:00","last_updated":"2026-05-30T16:51:57.906253+00:00","context":{"id":"01KSWWSBTJ3ZJQYMQW30J4BCJT","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": "ms"
+      },
+      "last_seen": "2026-05-30T17:09:59.735444+00:00"
+    }
+  ]
+}
