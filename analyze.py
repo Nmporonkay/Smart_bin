@@ -183,7 +183,7 @@ def plot_latency_over_time(df: pd.DataFrame) -> None:
         alpha=0.5, s=15, color="purple"
     )
 
-    ax.set_xlabel("Time")
+    ax.set_xlabel("Time (Month-Day-Hour)")
     ax.set_ylabel("Pipeline Latency (ms)")
     ax.set_title("Pipeline Latency Over Time")
     plt.xticks(rotation=45)
