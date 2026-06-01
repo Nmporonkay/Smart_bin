@@ -40,8 +40,6 @@ services:
       PYTHONUNBUFFERED: "1"
       MQTT_BROKER: "broker"
       MQTT_PORT: "1883"
-      MQTT_TOPIC: "smartbin/bin-01/pir-01/events"
-      MQTT_STATUS_TOPIC: "smartbin/bin-01/pir-01/status"
       DEVICE_ID: "urn:dev:team03:pir-01"
       SAMPLE_INTERVAL: "0.1"
       COOLDOWN: "2.0"

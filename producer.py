@@ -146,7 +146,7 @@ def main():
                     client.publish(args.topic, json.dumps(record), qos=args.qos)
 
                     if last_ha_state != "detected":
-                        client.publish(ha_motion_state_topic, "ON", qos=args.qos)
+                        client.publish(ha_motion_state_topic, "detected", qos=args.qos)
                         last_ha_state = "detected"
 
                     client.publish(ha_event_count_topic, str(seq), qos=args.qos)
@@ -159,7 +159,7 @@ def main():
 
             else:
                 if last_ha_state == "detected":
-                    client.publish(ha_motion_state_topic, "OFF", qos=args.qos)
+                    client.publish(ha_motion_state_topic, "clear", qos=args.qos)
                     last_ha_state = "clear"
 
                     if args.verbose:
