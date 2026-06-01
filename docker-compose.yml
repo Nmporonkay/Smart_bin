@@ -90,21 +90,21 @@ services:
       - "5000:5000"
     restart: unless-stopped
 
-  # ─── Home Assistant ─────────────────────────────────────────────
-  homeassistant:
-    image: ghcr.io/home-assistant/home-assistant:stable
-    container_name: smartbin-homeassistant
-    depends_on:
-      broker:
-        condition: service_healthy
-    networks:
-      - smartbin-net
-    ports:
-      - "8123:8123"
-    volumes:
-      - /home/iotlab_upat_3/homeassistant/config:/config
-    privileged: true
-    restart: unless-stopped
+  # # ─── Home Assistant ─────────────────────────────────────────────
+  # homeassistant:
+  #   image: ghcr.io/home-assistant/home-assistant:stable
+  #   container_name: smartbin-homeassistant
+  #   depends_on:
+  #     broker:
+  #       condition: service_healthy
+  #   networks:
+  #     - smartbin-net
+  #   ports:
+  #     - "8123:8123"
+  #   volumes:
+  #     - /home/iotlab_upat_3/homeassistant/config:/config
+  #   privileged: true
+  #   restart: unless-stopped
 
   # ─── Node-RED ───────────────────────────────────────────────────
   node-red:
