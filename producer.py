@@ -90,7 +90,7 @@ def main():
         publish_ha_discovery(client, args.bin_id, args.device_id, args.qos)
 
        
-        client.publish(ha_motion_state_topic, "clear", qos=args.qos)
+        client.publish(ha_motion_state_topic, "clear", qos=args.qos, retain=True)
         last_ha_state = "clear"
         
         
