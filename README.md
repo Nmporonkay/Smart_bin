@@ -91,19 +91,19 @@ in a folder named charts, you will see the charts that were made from analyze.py
 Unfortunately, since we did not have time to containarize home assistant, you won't be able to directly see our instance of home assistant. The configuration of our our instance of home assistant is in the homeassistant.rar file. If you're brave, you may navigate through the configuration files manually to see how we configured home assistant for this project...
 Otherwise, we have provided screenshots in our presentation and in the labs. 
 
-![alt text](image/ha1.JPG)
+![alt text](images/ha1.JPG)
 
-![alt text](image/ha2.JPG)
+![alt text](images/ha2.JPG)
 
-![alt text](image/ha3.JPG)
+![alt text](images/ha3.JPG)
 
-![alt text](image/ha4.JPG)
+![alt text](images/ha4.JPG)
 
-![alt text](image/ha5.JPG)
+![alt text](images/ha5.JPG)
 
-![alt text](image/ha6.JPG)
+![alt text](images/ha6.JPG)
 
-![alt text](image/ha7.JPG)
+![alt text](images/ha7.JPG)
 
 
 
