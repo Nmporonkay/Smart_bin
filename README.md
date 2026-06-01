@@ -8,7 +8,7 @@ Connect three wires from the sensor as follows:
 - middle(output) ===> gpio pin 17
 - right(+power) ===> 5V
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 Next thing you need to do, is connect through your terminal via ssh. You have to know the ip address of your pi. 
 Just type: 
@@ -19,12 +19,12 @@ Just type:
 
 in your terminal.
 
-Once your in, you have to change the working directory. 
+Once you're in, you have to change the working directory. 
 Type: 
 
 cd home_or_whatever/path_to_where_you_git-pulled 
 
-Next being thing is one important command: 
+Next thing is one important command: 
 
 docker compose up --build
 
@@ -80,18 +80,46 @@ smartbin
 └── bin-N
     └── ...
 
-That's pretty much it. As long as you connected everything correctly and followed the instructions faithfully, everything should be working fine. 
+That's pretty much it. As long as you connected everything correctly and followed the instructions, everything should be working fine. 
 
-If you want to go go EVEN FURTHER, stay with me. 
-In the working directory, run:
+To generate analytical charts with seaborn, run in the working directory:
+
 python analyze.py
 
-in, a directory named charts, you will see your results. They will help you after a long time, if you want to make statistical analysis for the events the sensor detects. 
+in a folder named charts, you will see the charts that were made from analyze.py by reading the logs on events.jsonl. 
 
-If you want to see what is going on on Home Assistant, click http://<your-pi-ip>:8123 on your browser. There you will configure your system after you make your account, or paste our own configuration, if you find it practical. It's missing home_assistant_core.yml, so you 'll have to make sth of your own. 
+Unfortunately, since we did not have time to containarize home assistant, you won't be able to directly see our instance of home assistant. The configuration of our our instance of home assistant is in the homeassistant.rar file. If you're brave, you may navigate through the configuration files manually to see how we configured home assistant for this project...
+Otherwise, we have provided screenshots in our presentation and in the labs. 
 
-To see your model built in Node-Red, click http:/<your-pi-ip>:1880
+![alt text](image/ha1.JPG)
+
+![alt text](image/ha2.JPG)
+
+![alt text](image/ha3.JPG)
+
+![alt text](image/ha4.JPG)
+
+![alt text](image/ha5.JPG)
+
+![alt text](image/ha6.JPG)
+
+![alt text](image/ha7.JPG)
+
+
+
+
+
+
+
+To see your the flows built in Node-Red, click http:/<your-pi-ip>:1880 
+Click the menu (three horizontal bars on top right), click import and select the flows.json file inside the node_red folder and then click on deploy to set up the node red framework.
 
 And, if you want to see your data live resting on REST-API, click  http://<your-pi-ip>:5000 
+To read the asyncapi yaml, open the swagger editor (link should be present in browser) and import the asyncapi.yaml file inside the api folder, similarly to node red. You should be able to see the full documentation of our topic structure
+
+
 
 That, was all, enjoy. 
+
+
+[def]: image
