@@ -82,11 +82,38 @@ smartbin
 
 That's pretty much it. As long as you connected everything correctly and followed the instructions, everything should be working fine. 
 
-To generate analytical charts with seaborn, run in the working directory:
+To generate analytical charts about changes in motion events and latency, run in the working directory:
 
 python analyze.py
 
 in a folder named charts, you will see the charts that were made from analyze.py by reading the logs on events.jsonl. 
+
+Here is an example output of analyze.py that was made by reading our events file:
+
+Chart #1
+![alt text](images/events_per_hour.png)
+
+Chart #2
+![alt text](images/latency_distribution.png)
+
+Chart #3
+![alt text](images/events_over_time.png)
+
+Chart #4
+![alt text](images/heatmap_hour_day.png)
+
+Chart #5
+![alt text](images/latency_over_time.png)
+
+Chart #6
+![alt text](images/latency_boxplot_per_hour.png)
+
+
+
+
+
+
+
 
 Unfortunately, since we did not have time to containarize home assistant, you won't be able to directly see our instance of home assistant. The configuration of our our instance of home assistant is in the homeassistant.rar file. If you're brave, you may navigate through the configuration files manually to see how we configured home assistant for this project...
 Otherwise, we have provided screenshots in our presentation and in the labs. 
@@ -122,4 +149,3 @@ To read the asyncapi yaml, open the swagger editor (link should be present in br
 That, was all, enjoy. 
 
 
-[def]: image
