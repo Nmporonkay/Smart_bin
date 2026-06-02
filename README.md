@@ -144,6 +144,9 @@ Click the menu (three horizontal bars on top right), click import and select the
 And, if you want to see your data live resting on REST-API, click  http://<your-pi-ip>:5000 
 To read the asyncapi yaml, open the swagger editor (link should be present in browser) and import the asyncapi.yaml file inside the api folder, similarly to node red. You should be able to see the full documentation of our topic structure
 
+NOTE: Because the broker is running in a container, if you want to publish/subscribe to a topic, you will need to add this prefix before the command : docker exec -it smartbin-broker
+
+e.g docker exec -it smartbin-broker mosquitto_sub localhost -t "smartbin/bin-01/#"
 
 
 That, was all, enjoy. 
