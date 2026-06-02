@@ -67,7 +67,7 @@ services:
       QOS: "1"
       VERBOSE: "true"
     volumes:
-      - ./data:/app/output    # bind mount → events land in ~/labs/Smart_bin/data/
+      - ./data:/app/output    
     restart: unless-stopped
 
   # ─── API ────────────────────────────────────────────────────────
@@ -85,28 +85,13 @@ services:
       MQTT_BROKER: "broker"
       MQTT_PORT: "1883"
     volumes:
-      - ./data:/app/output    # same bind mount → API reads the same events file
+      - ./data:/app/output    
     ports:
       - "5000:5000"
     restart: unless-stopped
 
-  # # ─── Home Assistant ─────────────────────────────────────────────
-  # homeassistant:
-  #   image: ghcr.io/home-assistant/home-assistant:stable
-  #   container_name: smartbin-homeassistant
-  #   depends_on:
-  #     broker:
-  #       condition: service_healthy
-  #   networks:
-  #     - smartbin-net
-  #   ports:
-  #     - "8123:8123"
-  #   volumes:
-  #     - /home/iotlab_upat_3/homeassistant/config:/config
-  #   privileged: true
-  #   restart: unless-stopped
 
-  # ─── Node-RED ───────────────────────────────────────────────────
+  # ─── Node-RED ──────────────────────────────────────────────
   node-red:
     build:
       context: ./node_red
@@ -163,3 +148,5 @@ volumes:
 networks:
   smartbin-net:
     driver: bridge
+
+
